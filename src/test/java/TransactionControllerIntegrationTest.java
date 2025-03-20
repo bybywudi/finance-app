@@ -13,7 +13,6 @@ class TransactionControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldCreateAndRetrieveTransaction() throws Exception {
-        // 创建交易
         String createJson = """
             {
                 "amount": 1150.75,
@@ -29,13 +28,11 @@ class TransactionControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andReturn().getResponse().getHeader("Location");
 
-        // 查询单个交易
         mvc.perform(get(location))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.amount").value(1150.75))
                 .andExpect(jsonPath("$.type").value("INCOME"));
 
-        // 查询列表
         mvc.perform(get(API_PATH + "?page=0&size=10"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content.length()").value(1));
@@ -67,12 +64,10 @@ class TransactionControllerIntegrationTest extends BaseIntegrationTest {
             }
             """;
 
-        // 第一次创建
         mvc.perform(post(API_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json));
 
-        // 第二次重复创建
         mvc.perform(post(API_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
