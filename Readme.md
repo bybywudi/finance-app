@@ -3,8 +3,8 @@
 ## Quick Start
 ### 克隆仓库
 ```bash
-git clone https://github.com/your-org/finance-system.git
-cd finance-system
+git clone git@github.com:bybywudi/finance-app.git
+cd finance-app
 ```
 ### 安装依赖并构建
 mvn clean install
